@@ -4,15 +4,25 @@ pipeline {
             label 'docker-agent-python'
             }
       }
-    triggers {
-        pollSCM '* * * * *'
+    parameters {
+        file(name: 'icon', description: 'icon file')
+        file(name: 'logo', description: 'logo file')
     }
     stages {
+        stage('Prepare') {
+            steps{
+                script {
+                    def image1 = params.image1
+                    def image2 = params.image2
+                    sh "cp ${image1} ./logos/image1.png"
+                    sh "cp ${image2} ./logos/image2.png"
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo "Building.."
                 sh '''
-                cd myapp
                 pip install -r requirements.txt
                 '''
             }
@@ -21,9 +31,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                cd myapp
-                python3 hello.py
-                python3 hello.py --name=Brad
+                python3 logo_changer.py
                 '''
             }
         }
