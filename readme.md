@@ -6,11 +6,7 @@ https://www.youtube.com/watch?v=6YZvp2GwT0A
 # Installation
 ## Build the Jenkins BlueOcean Docker Image (or pull and use the one I built)
 ```
-docker build -t myjenkins-blueocean:2.414.2 .
-
-#IF you are having problems building the image yourself, you can pull from my registry (It is version 2.332.3-1 though, the original from the video)
-
-docker pull devopsjourney1/jenkins-blueocean:2.332.3-1 && docker tag devopsjourney1/jenkins-blueocean:2.332.3-1 myjenkins-blueocean:2.332.3-1
+docker build -t myjenkins-blueocean:latest .
 ```
 
 ## Create the network 'jenkins'
@@ -27,7 +23,7 @@ docker run --name jenkins-blueocean --restart=on-failure --detach \
   --publish 8080:8080 --publish 50000:50000 \
   --volume jenkins-data:/var/jenkins_home \
   --volume jenkins-docker-certs:/certs/client:ro \
-  myjenkins-blueocean:2.414.2
+  myjenkins-blueocean:latest
 ```
 
 ### Windows
@@ -60,7 +56,15 @@ https://www.jenkins.io/doc/book/installing/docker/
 https://stackoverflow.com/questions/47709208/how-to-find-docker-host-uri-to-be-used-in-jenkins-docker-plugin
 ```
 docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
 docker inspect <container_id> | grep IPAddress
+```
+
+## Using a Jenkins Agent
+```
+docker pull jenkins/agent:latest
+
+docker pull jenkins/agent:latest-alpine-jdk21
 ```
 
 ## Using my Jenkins Python Agent
