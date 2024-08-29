@@ -1,2 +1,2 @@
 
-print("bajingan")
+print("bajingan parah")
