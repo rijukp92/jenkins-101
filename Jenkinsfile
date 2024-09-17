@@ -29,6 +29,7 @@ pipeline {
                 python3 hello.py --name=Jakob
                 '''
             }
+        }
                 
         stage('WhenNotMaster') {
             when {
