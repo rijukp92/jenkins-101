@@ -38,6 +38,7 @@ pipeline {
             }
             steps {
                 echo "Not the master. Fuck off!"
+            }
                         
         }
         stage('Deliver') {
