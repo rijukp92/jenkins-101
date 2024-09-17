@@ -17,7 +17,10 @@ pipeline {
                 '''
             }
         }
-        stage('Test') {
+        stage('WhenMaster') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo "Testing.."
                 sh '''
@@ -26,8 +29,21 @@ pipeline {
                 python3 hello.py --name=Jakob
                 '''
             }
+                
+        stage('WhenNotMaster') {
+            when {
+               not {
+                   branch 'master'
+               }
+            }
+            steps {
+                echo "Not the master. Fuck off!"
+                        
         }
         stage('Deliver') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Deliver....'
                 sh '''
