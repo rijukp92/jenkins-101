@@ -1,7 +1,7 @@
 pipeline {
     agent { 
         node {
-            label 'vm'
+            label 'builder-agent-docker-python'
             }
       }
     triggers {
