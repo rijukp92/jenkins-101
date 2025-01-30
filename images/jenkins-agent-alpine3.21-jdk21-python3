@@ -1,0 +1,8 @@
+FROM jenkins/agent:alpine3.21-jdk21
+USER root
+RUN apk add python3
+RUN apk add py3-pip
+USER jenkins
+RUN python3 -m venv /home/jenkins/venv
+ENV PATH="/home/jenkins/venv/bin:$PATH"
+RUN pip install --upgrade pip
